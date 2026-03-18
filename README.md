@@ -3,7 +3,7 @@ Group Members:
 Adeel Shah\
 Jasmeet Singh Saluja\
 Yue Ma\
-Justin Lagrimas\
+Justin Lagrimas
 
 Introduction
 
