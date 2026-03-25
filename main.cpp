@@ -21,7 +21,7 @@ int main() {
         delete ui;
 
     } while (choices != 3);
-	delete[] StoreDeoartments;
+	delete[] StoreDepartments;
     cout << "PRG210 Group Project Setup Successful!" << endl;
     return 0;;
 }
