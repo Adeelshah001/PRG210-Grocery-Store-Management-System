@@ -36,5 +36,6 @@ class product {
     int getQuantity() const;
 
     //display function
+    // will display product details
     void display() const;
 };
