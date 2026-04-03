@@ -37,6 +37,24 @@ void product::setName(const char name[]){
         productName[name_size - 1] = '\0';
     }
 }
+// set product price
+void product::setPrice(double price) {
+    if (price >= 0 ){
+        productPrice = price;
+    }
+    else {
+        productPrice = 0.0;
+    }
+}
+// set product quantity
+void product::setQuantity(int quantity){
+    if (quantity >= 0) {
+        productQuantity = quantity;
+    }
+    else {
+        productQuantity = 0;
+    }
+}
 
 // get functions
 //get name
