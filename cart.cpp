@@ -112,7 +112,7 @@ void Cart::updateTotalCost()
 }
 
 // Resize arrays and append a new product
-void Cart::resizeAndAdd(const product& product, int quantity)
+void Cart::resizeAndAdd(const product& prod, int quantity)
 {
     product* tempItems = new product[totalItems + 1];
     int* tempQuantities = new int[totalItems + 1];
@@ -123,7 +123,7 @@ void Cart::resizeAndAdd(const product& product, int quantity)
         tempQuantities[i] = quantities[i];
     }
 
-    tempItems[totalItems] = product;
+    tempItems[totalItems] = prod;
     tempQuantities[totalItems] = quantity;
 
     delete[] items;
@@ -135,7 +135,7 @@ void Cart::resizeAndAdd(const product& product, int quantity)
 }
 
 // Add items to cart
-void Cart::addItem(const product& product, int quantity)
+void Cart::addItem(const product& prod, int quantity)
 {
     if (quantity <= 0)
     {
@@ -143,7 +143,7 @@ void Cart::addItem(const product& product, int quantity)
         return;
     }
 
-    int index = findProductIndex(product.getName());
+    int index = findProductIndex(prod.getName());
 
     if (index != -1)
     {
@@ -151,7 +151,7 @@ void Cart::addItem(const product& product, int quantity)
     }
     else
     {
-        resizeAndAdd(product, quantity);
+        resizeAndAdd(prod, quantity);
     }
 
     updateTotalCost();
