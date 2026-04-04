@@ -5,6 +5,9 @@ int main() {
     Interface* ui = nullptr;
     int choices;
     do {
+		cout << "Welcome to the Grocery Store Management System\n";
+		cout << "----------------------------------------------\n\n";
+		cout << "Please select your role or exit:";
         cout << "\n" <<"\n1. Customer\n2. Manager\n 3.Exit\n";
         cin >> choices;
         if(choices==1){
