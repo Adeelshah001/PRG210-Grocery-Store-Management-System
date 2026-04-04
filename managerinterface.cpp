@@ -1,8 +1,8 @@
-#include "ManagerInterface.h"
+#include "managerinterface.h"
 #include<fstream>
 #include<cstring>
 
-void ManagerInterface::ShowMenu()
+void ManagerInterface::showMenu()
 {
     int choice=0;
     while(choice!=5)
@@ -85,11 +85,11 @@ void ManagerInterface::addItem()//To add a new item to a specific department
     
     int deptChoice;
     cout<<"Enter a department number: ";
-    cin>> deptChocie;
+    cin>> deptChoice;
 
     if(deptChoice<1 || deptChoice > TotalDepartments)
     {
-        Cout<<"Invalid department number. Returning to main menu.\n";
+        cout <<"Invalid department number. Returning to main menu.\n";
         return;
     }
 

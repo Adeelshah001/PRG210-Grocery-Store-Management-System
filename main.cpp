@@ -1,4 +1,8 @@
 #include <iostream>
+#include "interface.h"
+#include "fileHandling.h"
+#include "customerinterface.h"
+#include "managerinterface.h"
 using namespace std;
 
 int main() {

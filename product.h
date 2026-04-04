@@ -1,5 +1,4 @@
 #pragma once
-
 class product {
     private:
     // static product name size 
