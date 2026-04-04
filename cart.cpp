@@ -1,7 +1,8 @@
+#include "cart.h"
+#include "product.h" 
 #include <iostream>
 #include <iomanip>
 #include <cstring>
-#include "cart.h"
 
 using namespace std;
 
