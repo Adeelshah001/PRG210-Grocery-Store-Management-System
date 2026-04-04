@@ -7,6 +7,7 @@ void ManagerInterface::ShowMenu()
     int choice=0;
     while(choice!=5)
     {
+        cout << "\nManager Menu\n";
         cout<<"1. List Departments\n2. Add Department\n3. Add Item to Department\n4. Save Changes to CSV\n5. Exit"; 
         cout<<"Enter you choice: "; // taking input to try one of these options
         cin>>choice;
