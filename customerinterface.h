@@ -1,0 +1,18 @@
+#pragma once
+#include "Interface.h"
+#include "department.h"
+#include "cart.h"
+
+using namespace std;
+
+class CustomerInterface : public Interface
+{
+private:
+    Cart shoppingCart;
+
+    void showCartMenu();
+    void browseDepartments();
+
+public:
+    void showMenu();  // override base class menu
+};
