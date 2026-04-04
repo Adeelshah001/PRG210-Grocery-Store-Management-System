@@ -8,7 +8,8 @@ void ManagerInterface::ShowMenu()
     while(choice!=5)
     {
         cout << "\nManager Menu\n";
-        cout<<"1. List Departments\n2. Add Department\n3. Add Item to Department\n4. Save Changes to CSV\n5. Exit"; 
+        cout << "---------------------\n";
+        cout<<"1. List Departments\n2. Add Department\n3. Add Item to Department\n4. Save Changes to CSV\n5. Exit\n"; 
         cout<<"Enter you choice: "; // taking input to try one of these options
         cin>>choice;
         if(choice==1)
@@ -113,11 +114,11 @@ void ManagerInterface::saveChanges()//Save changes to CSV file
 {
     if(saveDataToCsv(csvFile)==0)
     {
-        cout<<"Data saved successfully to "<<csvFile<<endl;
+        cout<<"Data saved successfully to "<<csvFile<< "\n" <<endl;
     }
     else
     {
-        cout<<"Error saving data to "<<csvFile<<endl;
+        cout<<"Error saving data to "<<csvFile<< "\n" <<endl;
     }
 }
 
