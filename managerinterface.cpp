@@ -57,7 +57,8 @@ void ManagerInterface::addDepartment()//To adda new department to the store
 {
     char deptName[50];
     cout<<"Enter the Department Name: ";
-    cin>>deptName;
+    cin.ignore();                 // clear previous input
+    cin.getline(deptName, 50);    // allows spaces while taking input
 
     Department *newDepartments;
     newDepartments = new Department[TotalDepartments + 1];
