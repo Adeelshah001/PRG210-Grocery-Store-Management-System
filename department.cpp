@@ -2,6 +2,7 @@
 #include "department.h"
 #include <iostream>
 #include <cstring>
+#include <iomanip>
 
 using namespace std;
 
@@ -175,13 +176,22 @@ void Department::listItems() const
         cout << "No items in this department\n";
         return;
     }
-
+    else
+    {
+        cout << "---------------------------------------------" << endl;
+        cout << fixed << setprecision(2);
+        cout << left << setw(5) << "No"
+            << setw(20) << "Item Name"
+            << setw(12) << "Price"
+            << setw(8) << "Qty" << endl;
+        cout << "---------------------------------------------" << endl;
+    }
     for (int i = 0; i < totalItems; i++)
     {
-        cout << (i + 1) << ". "
-             << items[i].getName()
-             << " | Price: $" << items[i].getPrice()
-             << " | Qty: " << items[i].getQuantity()
-             << "\n";
+        cout << left << setw(5) << (i + 1)
+            << setw(20) << items[i].getName()
+            << setw(12) << items[i].getPrice()
+            << setw(8) << items[i].getQuantity()
+            << endl;
     }
 }
