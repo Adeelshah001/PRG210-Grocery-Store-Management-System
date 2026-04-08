@@ -17,7 +17,7 @@ int main() {
 		cout << "\nWelcome to the Grocery Store Management System\n";
 		cout << "----------------------------------------------\n\n";
 		cout << "Please select your role or exit:";
-        cout << "\n" <<"\n1. Customer\n2. Manager\n 3.Exit\n";
+        cout << "\n" <<"\n1. Customer\n2. Manager\n3. Exit\n";
 		cout << "Enter your choice: ";
         while (!(cin >> choices))
         {
