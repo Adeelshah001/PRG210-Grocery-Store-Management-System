@@ -161,30 +161,41 @@ void Cart::addItem(const product& prod, int quantity)
 //Print all items in the cart
 void Cart::listItems() const
 {
+    cout << fixed << setprecision(2);
+    cout << "\n========================= SHOPPING CART =========================" << "\n";
+    cout << left << setw(5) << "No"
+        << setw(20) << "Item Name"
+        << setw(10) << "Qty"
+        << setw(12) << "Price"
+        << setw(15) << "Line Total" << endl;
+
+    cout << "-----------------------------------------------------------------" << endl;
+
     if (isEmpty())
     {
-        cout << "No items in the cart" << "\n";
+        cout << "No items in the cart..." << "\n";
+        cout << "-----------------------------------------------------------------" << "\n";
         return;
     }
 
-    cout << fixed << setprecision(2);
-    cout << "=============== SHOPPING CART ===============" << "\n";
 
-    for (int i = 0; i < totalItems; ++i)
+    for (int i = 0; i < totalItems; ++i) // loopdisplay all items
     {
         double lineTotal = items[i].getPrice() * quantities[i];
-
-        cout << (i + 1) << ". " << "Name: " << items[i].getName()
-        << " | Quantity: " << quantities[i] << " | Price: $"
-        << items[i].getPrice() << " | Line Total: $" << lineTotal
-        << "\n";
+        // display items info in aligned columns
+        cout << left << setw(5) << (i + 1)          // item index
+             << setw(20) << items[i].getName()     // product name
+             << setw(10) << quantities[i]          // quantity
+             << setw(12) << items[i].getPrice()    // single price
+             << setw(15) << lineTotal              // total price
+             << endl;
     }
 
-    cout << "----------------------------------------------------" << "\n";
-    cout << "Subtotal: $" << getSubtotal() << "\n";
-    cout << "Tax (13%): $" << getTax() << "\n";
-    cout << "Total: $" << getTotalCost() << "\n";
-    cout << "=====================================================" << "\n";
+    cout << "-----------------------------------------------------------------" << "\n";
+    cout << right << setw(35) << "Subtotal: $" << setw(10) << getSubtotal() << endl;
+    cout << right << setw(35) << "Tax (13%): $" << setw(10) << getTax() << endl;
+    cout << right << setw(35) << "Total: $" << setw(10) << getTotalCost() << endl;
+    cout << "=================================================================" << "\n";
 }
 
 // Checkout and clear cart
