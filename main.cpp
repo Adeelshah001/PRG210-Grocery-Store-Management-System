@@ -6,29 +6,58 @@
 using namespace std;
 
 int main() {
-    Interface* ui = nullptr;
-    int choices;
+    
+	if (loadDataFromCsv(csvFile) != 0) 
+	{
+    	cout << "Failed to load grocery data from CSV file.\n Exiting...\n";
+    	return 1;
+	}
+	int choices=0;
     do {
-		cout << "Welcome to the Grocery Store Management System\n";
+		cout << "\nWelcome to the Grocery Store Management System\n";
 		cout << "----------------------------------------------\n\n";
 		cout << "Please select your role or exit:";
         cout << "\n" <<"\n1. Customer\n2. Manager\n 3.Exit\n";
-        cin >> choices;
-        if(choices==1){
-            ui = new CustomerInterface();
-            ui->showMenu();
-        }
-        else if(choices == 2){
-            ui = new ManagerInterface();
-            ui->showMenu();
-		}else
+		cout << "Enter your choice: ";
+        while (!(cin >> choices))
         {
-            break;
+           cin.clear();
+           cin.ignore(1000, '\n');
+           cout << "Invalid input. Enter 1-3: ";
         }
-        delete ui;
+
+        switch (choices) 
+        {
+           case 1: 
+           {
+               CustomerInterface customerUI;
+               customerUI.showMenu();
+               break;
+           }
+           case 2: 
+           {
+               ManagerInterface managerUI;
+               managerUI.showMenu();
+               break;
+           }
+           case 3:
+           {
+               cout << "Exiting program...\n";
+               break;
+           }
+           default:
+           {
+               cout << "Invalid choice\n";
+           }
+        }
 
     } while (choices != 3);
-	delete[] StoreDepartments;
+	
+	if (StoreDepartments != nullptr)
+	{
+    	delete[] StoreDepartments;
+    	StoreDepartments = nullptr; 
+	}
     cout << "PRG210 Group Project Setup Successful!" << endl;
     return 0;;
 }
