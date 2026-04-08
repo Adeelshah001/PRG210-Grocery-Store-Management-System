@@ -11,7 +11,12 @@ void ManagerInterface::showMenu()
         cout << "---------------------\n";
         cout<<"1. List Departments\n2. Add Department\n3. Add Item to Department\n4. Save Changes to CSV\n5. Exit\n"; 
         cout<<"Enter you choice: "; // taking input to try one of these options
-        cin>>choice;
+        while (!(cin >> choice)) 
+        {
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input. Enter 1-5: ";
+        }
         if(choice==1)
         {
             listDepartments();
@@ -32,10 +37,6 @@ void ManagerInterface::showMenu()
         {
             cout<<"Exiting Manager Menu\n";
         }
-        else
-        {
-            cout<<"Invalid choice, please enter a valid input.\n";
-        }
     }
 
 }
@@ -46,6 +47,11 @@ void ManagerInterface::listDepartments()//List all departments in the store
     {
         cout << "No departments available.\n";
         return;
+    }
+    else
+    {
+	    cout << "\nDepartments in the Store:\n";
+	    cout << "-------------------------\n";
     }
     for(int i=0;i<TotalDepartments;i++)
     {
