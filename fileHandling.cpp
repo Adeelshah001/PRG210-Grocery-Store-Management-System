@@ -101,10 +101,6 @@ int loadDataFromCsv(const char* filePath)
         }
 
         // Save the department name, product array, and item count into the current Department object
-
-        // ***ENSURE THIS IS THE SAME DEPARTMENT CLASS FUNCTION NAME IN THE DEPARTMENT .H AND .CPP FILE AND THEN DELETE THESE 3 COMMENT LINES***
-        // ***This assumes your Department class has a function:***
-        // ***setDepartmentInfo(const char*, product*, int)***
         StoreDepartments[d].setDepartmentInfo(depName.c_str(), p, pCount);
     }
 
@@ -132,14 +128,6 @@ int saveDataToCsv(const char* filePath)
     // WRITE EACH DEPARTMENT
     for (int d = 0; d < TotalDepartments; d++)
     {
-        // ***NOTE: DELETE THESE COMMENTS ONCE YOU ENSURE THE FUNCTION NAMES ARE THE SAME***
-        // ***The lines below assume your Department class has:***
-        // ***getDepartmentName()***
-        // ***getTotalItems()***
-        // ***getProducts()***
-        // ***If your group used different names,***
-        // ***only these function names need to be changed.***
-
         // Write department header line
         file << StoreDepartments[d].getDepartmentName() << ","
              << StoreDepartments[d].getTotalItems() << endl;
