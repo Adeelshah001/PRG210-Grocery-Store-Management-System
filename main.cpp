@@ -6,7 +6,7 @@
 using namespace std;
 
 int main() {
-    
+    loadDataFromCsv(csvFile);
 	if (loadDataFromCsv(csvFile) != 0) 
 	{
     	cout << "Failed to load grocery data from CSV file.\n Exiting...\n";
