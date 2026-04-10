@@ -1,102 +1,134 @@
 #include "managerinterface.h"
-#include<fstream>
-#include<cstring>
+#include <fstream>
+#include <cstring>
+
+using namespace std;
 
 void ManagerInterface::showMenu()
 {
-    int choice=0;
-    while(choice!=5)
+    int choice = 0;
+
+    while (choice != 5)
     {
         cout << "\nManager Menu\n";
         cout << "---------------------\n";
-        cout<<"1. List Departments\n2. Add Department\n3. Add Item to Department\n4. Save Changes to CSV\n5. Exit\n"; 
-        cout<<"Enter you choice: "; // taking input to try one of these options
-        while (!(cin >> choice)) 
+        cout << "1. List Departments\n";
+        cout << "2. Add Department\n";
+        cout << "3. Add Item to Department\n";
+        cout << "4. Save Changes to CSV\n";
+        cout << "5. Exit\n";
+        cout << "Enter your choice: ";
+
+        while (!(cin >> choice))
         {
             cin.clear();
             cin.ignore(1000, '\n');
             cout << "Invalid input. Enter 1-5: ";
         }
-        if(choice==1)
+
+        if (choice == 1)
         {
             listDepartments();
         }
-        else if(choice==2)
+        else if (choice == 2)
         {
             addDepartment();
         }
-        else if(choice==3)
+        else if (choice == 3)
         {
             addItem();
         }
-        else if(choice==4)
+        else if (choice == 4)
         {
             saveChanges();
         }
-        else if(choice==5)
+        else if (choice == 5)
         {
-            cout<<"Exiting Manager Menu\n";
+            cout << "Exiting Manager Menu\n";
+        }
+        else
+        {
+            cout << "Invalid choice. Please enter 1-5.\n";
         }
     }
-
 }
 
-void ManagerInterface::listDepartments()//List all departments in the store
+void ManagerInterface::listDepartments()
 {
     if (TotalDepartments == 0)
     {
         cout << "No departments available.\n";
         return;
     }
-    else
+
+    cout << "\nDepartments in the Store:\n";
+    cout << "-------------------------\n";
+
+    for (int i = 0; i < TotalDepartments; i++)
     {
-	    cout << "\nDepartments in the Store:\n";
-	    cout << "-------------------------\n";
-    }
-    for(int i=0;i<TotalDepartments;i++)
-    {
-        cout<<i+1<<" "<<StoreDepartments[i].getDepartmentName()<<endl;
+        cout << i + 1 << ". " << StoreDepartments[i].getDepartmentName() << endl;
     }
 }
 
-void ManagerInterface::addDepartment()//To adda new department to the store
+void ManagerInterface::addDepartment()
 {
     char deptName[50];
-    cout<<"Enter the Department Name: ";
-    cin.ignore();                 // clear previous input
-    cin.getline(deptName, 50);    // allows spaces while taking input
 
-    Department *newDepartments;
-    newDepartments = new Department[TotalDepartments + 1];
+    cout << "Enter the Department Name: ";
 
-    for(int i=0;i < TotalDepartments;i++) // copy old departments into new array
+    // Clear leftover newline before getline
+    cin.ignore(1000, '\n');
+    cin.getline(deptName, 50);
+
+    if (deptName[0] == '\0')
     {
-        newDepartments[i]=StoreDepartments[i];
-    
+        cout << "Department name cannot be empty.\n";
+        return;
     }
-    
-    //add new department at the end
-    newDepartments[TotalDepartments].setDepartmentInfo(deptName,nullptr,0);
 
-    delete[] StoreDepartments; // delete old array
-    StoreDepartments =newDepartments;//point to new array
-    TotalDepartments++;//increase department count
+    // Create a larger department array
+    Department* newDepartments = new Department[TotalDepartments + 1];
 
-    cout<<"Department added successfully"<<endl;
-
-}
-void ManagerInterface::addItem()//To add a new item to a specific department
-{
-    listDepartments();// to list depratment before selecting it
-    cout<<"Select a department: \n";
-    
-    int deptChoice;
-    cout<<"Enter a department number: ";
-    cin>> deptChoice;
-
-    if(deptChoice<1 || deptChoice > TotalDepartments)
+    // Copy old departments
+    for (int i = 0; i < TotalDepartments; i++)
     {
-        cout <<"Invalid department number. Returning to main menu.\n";
+        newDepartments[i] = StoreDepartments[i];
+    }
+
+    // Add new department at the end
+    newDepartments[TotalDepartments].setDepartmentInfo(deptName, nullptr, 0);
+
+    // Replace old array
+    delete[] StoreDepartments;
+    StoreDepartments = newDepartments;
+    TotalDepartments++;
+
+    cout << "Department added successfully.\n";
+}
+
+void ManagerInterface::addItem()
+{
+    if (TotalDepartments == 0)
+    {
+        cout << "No departments available.\n";
+        return;
+    }
+
+    listDepartments();
+
+    int deptChoice;
+    cout << "Enter a department number: ";
+
+    while (!(cin >> deptChoice))
+    {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Invalid input. Enter a valid department number: ";
+    }
+
+    if (deptChoice < 1 || deptChoice > TotalDepartments)
+    {
+        cout << "Invalid department number. Returning to main menu.\n";
         return;
     }
 
@@ -104,28 +136,46 @@ void ManagerInterface::addItem()//To add a new item to a specific department
     double price;
     int quantity;
 
-    cout<<"Enter Item Name: ";
-    cin>>itemName;
-    cout<<"Enter Price:";
-    cin>>price;
-    cout <<"Enter Quantity:";
-    cin>> quantity;
+    cout << "Enter Item Name: ";
+    cin.ignore(1000, '\n');
+    cin.getline(itemName, 100);
 
-    product newItem(itemName, price,quantity);
-    StoreDepartments[deptChoice-1].addItem(newItem);
+    if (itemName[0] == '\0')
+    {
+        cout << "Item name cannot be empty.\n";
+        return;
+    }
 
-    cout<<"Item added successfully.\n";
+    cout << "Enter Price: ";
+    while (!(cin >> price))
+    {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Invalid input. Enter a valid price: ";
+    }
+
+    cout << "Enter Quantity: ";
+    while (!(cin >> quantity))
+    {
+        cin.clear();
+        cin.ignore(1000, '\n');
+        cout << "Invalid input. Enter a valid quantity: ";
+    }
+
+    product newItem(itemName, price, quantity);
+    StoreDepartments[deptChoice - 1].addItem(newItem);
+
+    cout << "Item added successfully.\n";
 }
 
-void ManagerInterface::saveChanges()//Save changes to CSV file
+void ManagerInterface::saveChanges()
 {
-    if(saveDataToCsv(csvFile)==0)
+    if (saveDataToCsv(csvFile) == 0)
     {
-        cout<<"Data saved successfully to "<<csvFile<< "\n" <<endl;
+        cout << "Data saved successfully to " << csvFile << "\n";
     }
     else
     {
-        cout<<"Error saving data to "<<csvFile<< "\n" <<endl;
+        cout << "Error saving data to " << csvFile << "\n";
     }
 }
-

@@ -209,7 +209,7 @@ void Cart::checkout()
 
     cout << fixed << setprecision(2);
     cout << "Thank you for your purchase" << "\n";
-    cout << "Final total: $" << "\n";
+    cout << "Final total: $" << getTotalCost() << "\n";
 
     clear();
 }

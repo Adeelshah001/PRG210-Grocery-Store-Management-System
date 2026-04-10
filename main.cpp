@@ -3,61 +3,74 @@
 #include "fileHandling.h"
 #include "customerinterface.h"
 #include "managerinterface.h"
+
 using namespace std;
 
-int main() {
-    loadDataFromCsv(csvFile);
-	if (loadDataFromCsv(csvFile) != 0) 
-	{
-    	cout << "Failed to load grocery data from CSV file.\n Exiting...\n";
-    	return 1;
-	}
-	int choices=0;
-    do {
-		cout << "\nWelcome to the Grocery Store Management System\n";
-		cout << "----------------------------------------------\n\n";
-		cout << "Please select your role or exit:";
-        cout << "\n" <<"\n1. Customer\n2. Manager\n3. Exit\n";
-		cout << "Enter your choice: ";
-        while (!(cin >> choices))
+int main()
+{
+    // Load grocery data from CSV file once at program start
+    if (loadDataFromCsv(csvFile) != 0)
+    {
+        cout << "Failed to load grocery data from CSV file.\n";
+        cout << "Program will start with empty store data.\n";
+    }
+
+    int choice = 0;
+
+    do
+    {
+        cout << "\nWelcome to the Grocery Store Management System\n";
+        cout << "----------------------------------------------\n\n";
+        cout << "Please select your role or exit:\n";
+        cout << "1. Customer\n";
+        cout << "2. Manager\n";
+        cout << "3. Exit\n";
+        cout << "Enter your choice: ";
+
+        while (!(cin >> choice))
         {
-           cin.clear();
-           cin.ignore(1000, '\n');
-           cout << "Invalid input. Enter 1-3: ";
+            cin.clear();
+            cin.ignore(1000, '\n');
+            cout << "Invalid input. Enter 1-3: ";
         }
 
-        switch (choices) 
+        switch (choice)
         {
-           case 1: 
-           {
-               CustomerInterface customerUI;
-               customerUI.showMenu();
-               break;
-           }
-           case 2: 
-           {
-               ManagerInterface managerUI;
-               managerUI.showMenu();
-               break;
-           }
-           case 3:
-           {
-               cout << "Exiting program...\n";
-               break;
-           }
-           default:
-           {
-               cout << "Invalid choice\n";
-           }
+        case 1:
+        {
+            // Customer menu
+            CustomerInterface customerUI;
+            customerUI.showMenu();
+            break;
+        }
+        case 2:
+        {
+            // Manager menu
+            ManagerInterface managerUI;
+            managerUI.showMenu();
+            break;
+        }
+        case 3:
+        {
+            cout << "Exiting program...\n";
+            break;
+        }
+        default:
+        {
+            cout << "Invalid choice. Please enter 1, 2, or 3.\n";
+            break;
+        }
         }
 
-    } while (choices != 3);
-	
-	if (StoreDepartments != nullptr)
-	{
-    	delete[] StoreDepartments;
-    	StoreDepartments = nullptr; 
-	}
-    cout << "PRG210 Group Project Setup Successful!" << endl;
-    return 0;;
+    } while (choice != 3);
+
+    // Clean up department array before program ends
+    if (StoreDepartments != nullptr)
+    {
+        delete[] StoreDepartments;
+        StoreDepartments = nullptr;
+    }
+
+    cout << "Program ended successfully.\n";
+    return 0;
 }

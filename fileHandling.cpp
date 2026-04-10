@@ -31,80 +31,66 @@ int loadDataFromCsv(const char* filePath)
     ifstream file(filePath);
 
     // Check if the file opened successfully
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         cerr << "Error opening file." << endl;
         return 1;
     }
 
-    // This string will temporarily store each line from the file
+    // If data was already loaded before, free old memory first
+    if (StoreDepartments != nullptr)
+    {
+        delete[] StoreDepartments;
+        StoreDepartments = nullptr;
+        TotalDepartments = 0;
+    }
+
     string line;
 
-    // Read the first line of the file which stores the total number of departments
+    // Read total number of departments
     getline(file, line);
-
-    // Convert that line from string to int
     TotalDepartments = stoi(line);
 
-    // Create a dynamic array of Department objects
+    // Create department array
     StoreDepartments = new Department[TotalDepartments];
 
-    // READ EACH DEPARTMENT
+    // Read each department block
     for (int d = 0; d < TotalDepartments; d++)
     {
-        // Read one department header line
         getline(file, line);
 
-        // Temporary variables for department data
         string depName;
         int pCount;
 
-        // Use stringstream to split the line by comma
         stringstream ss(line);
-
-        // Read department name up to the comma
         getline(ss, depName, ',');
-
-        // Read the product count after the comma
         ss >> pCount;
 
-        // Make a dynamic array of products for this department
         product* p = new product[pCount];
 
-        // READ ALL PRODUCTS IN THIS DEPARTMENT
         for (int i = 0; i < pCount; i++)
         {
-            // Read one product line
             getline(file, line);
 
-            // Temporary variables for one product
             string pName;
             double pPrice;
             int pQuantity;
 
-            // Use stringstream to split the product line
             stringstream productStream(line);
-
-            // Read product name up to the first comma
             getline(productStream, pName, ',');
-
-            // Read price
             productStream >> pPrice;
-
-            // Ignore the comma after price
             productStream.ignore();
-
-            // Read quantity
             productStream >> pQuantity;
 
-            // Store the values in the product object
             p[i].setProduct(pName.c_str(), pPrice, pQuantity);
         }
 
-        // Save the department name, product array, and item count into the current Department object
         StoreDepartments[d].setDepartmentInfo(depName.c_str(), p, pCount);
+
+        // Delete temporary product array after deep copy into Department
+        delete[] p;
     }
 
-    // Close the file
     file.close();
     return 0;
 }
